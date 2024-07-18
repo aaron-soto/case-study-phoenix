@@ -67,3 +67,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+html {
+  overflow-x: hidden;
+}
+
+.carousel-item {
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
