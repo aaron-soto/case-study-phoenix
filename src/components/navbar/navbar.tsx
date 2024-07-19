@@ -136,7 +136,7 @@ const Navbar = () => {
                             "text-muted-foreground uppercase tracking-widest",
                             oswald.className
                           )}
-                          onClick={(e) => signIn()}
+                          onClick={(e) => signIn("google")}
                         >
                           <div className="mt-1">Log in</div>
                         </Button>
@@ -181,7 +181,7 @@ const Navbar = () => {
                     "text-muted-foreground uppercase tracking-widest",
                     oswald.className
                   )}
-                  onClick={(e) => signIn()}
+                  onClick={(e) => signIn("google")}
                 >
                   <div className="mt-1">Log in</div>
                 </Button>
