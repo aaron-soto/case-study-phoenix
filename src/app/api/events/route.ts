@@ -17,6 +17,8 @@ export async function GET(req: Request) {
   const todayEnd = new Date(todayStart);
   todayEnd.setHours(23, 59, 59, 999); // Set to the end of the day
 
+  const todayDateString = todayStart.toISOString().split("T")[0]; // Get date part as string
+
   let events;
 
   try {
@@ -49,7 +51,27 @@ export async function GET(req: Request) {
       events = await prisma.event.findMany();
     }
 
-    return NextResponse.json(events);
+    // Separate events into 'today', 'past', and 'future' based on date only
+    const todayEvents = events.filter((event) => {
+      const eventDateString = new Date(event.date).toISOString().split("T")[0];
+      return eventDateString === todayDateString;
+    });
+    const pastEvents = events.filter(
+      (event) => new Date(event.date) < todayStart
+    );
+    const futureEvents = events.filter(
+      (event) => new Date(event.date) > todayEnd
+    );
+
+    if (filter === EventFilterTypes.TODAY) {
+      return NextResponse.json(todayEvents);
+    } else if (filter === EventFilterTypes.PAST) {
+      return NextResponse.json(pastEvents);
+    } else if (filter === EventFilterTypes.FUTURE) {
+      return NextResponse.json(futureEvents);
+    } else {
+      return NextResponse.json(events);
+    }
   } catch (error: any) {
     console.error("Error fetching events:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
