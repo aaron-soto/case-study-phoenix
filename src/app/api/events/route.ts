@@ -1,12 +1,11 @@
 import { EventFilterTypes } from "@/types/Events";
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { authOptions } from "@/lib/AuthOptions";
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/Prisma";
 
 // GET all events
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   const baseURL = process.env.NEXTAUTH_URL! || "http://localhost:3000";
   const url = new URL(req.url!, baseURL);
 
