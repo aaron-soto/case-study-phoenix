@@ -1,8 +1,12 @@
+"use client";
+
 import * as Icons from "simple-icons/icons";
 
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 // Define the possible icon names
 type IconName = "instagram" | "facebook" | "youtube"; // Add more as needed
@@ -72,11 +76,22 @@ const SocialLink = ({ name, href }: { name: IconName; href: string }) => {
 };
 
 const Footer = ({ className }: { className?: string }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <footer className={cn(className, "bg-[#0c0b09] border-t")}>
       <div className="container flex flex-col items-center justify-start gap-16 py-16 md:flex-row md:items-start md: ">
         <div className="text-center md:text-left">
-          <span className="font-serif text-xl uppercase">CaseStudy</span>
+          {/* <span className="font-serif text-xl uppercase">CaseStudy</span> */}
+          <Image
+            src={`/images/logos/white-logo-${
+              isMobile ? "centered" : "left"
+            }.svg`}
+            alt="casestudy logo"
+            width={80}
+            height={50}
+            className="mx-auto w-[120px] h-[50px] md:mx-0"
+          ></Image>
           <p className="my-4">4802 N 16th st Phoenix Az, USA</p>
           <p>Phone: (480) 590-4270</p>
           <p>
